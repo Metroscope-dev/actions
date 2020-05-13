@@ -1,0 +1,25 @@
+name: "kubernetes-deployment"
+description: "kubernetes rolling update management"
+inputs:
+  kubeconfig:
+    description: "kubeconfig content"
+    required: true
+  image:
+    description: "docker image <docker_image>:<tag>"
+    require: true
+  deployment:
+    description: "deployment on k8s"
+    require: true
+  container:
+    description: "Container name on the deployment"
+output:
+  current:
+    decscription: "Current tag after rolling update"
+runs:
+  using: 'docker'
+  image: 'dockerfile'
+  args:
+    - ${{ inputs.kubeconfig }}
+    - ${{ inputs.image }}
+    - ${{ inputs.deployment }}
+    - ${{ imputs.container }}
