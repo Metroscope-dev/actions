@@ -22,4 +22,4 @@ runs:
     - ${{ inputs.kubeconfig }}
     - ${{ inputs.image }}
     - ${{ inputs.deployment }}
-    - ${{ imputs.container }}
+    - ${{ inputs.container }}
