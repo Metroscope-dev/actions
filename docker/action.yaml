@@ -1,0 +1,28 @@
+name: "Build docker"
+decription: "Build Dockerfile and push it to the registry"
+inputs:
+  registry_password:
+    description: "password of the registry"
+    required: true
+  registry_login:
+    description: "login of the registry"
+    required: true
+  image:
+    description: "full name of the image <registry>/<name> without tag"
+    require: true
+  tag:
+    description: "tag wanted for this image"
+    require: true
+  dokerfile:
+    description: "name of the dockerfile"
+    require: false
+    default: "Dokerfile"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.registry_password }}
+    - ${{ inputs.registry_login }}
+    - ${{ inputs.image }}
+    - ${{ inputs.tag }}
+    - ${{ inputs.dokerfile }}
