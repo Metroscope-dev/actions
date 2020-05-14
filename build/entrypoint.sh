@@ -8,7 +8,6 @@ function login { ## regirtry login password
 
 function build { ## dockerfile image
     echo "=> docker build $2"
-    echo "> dockerfile $1"
     docker build -f $1 -t $2 .
 }
 
@@ -28,13 +27,6 @@ image=$INPUT_IMAGE
 tag=$INPUT_TAG
 dockerfile=$INPUT_DOCKERFILE
 registry=$(echo $image | cut -f1 -d"/")
-
-echo "summary:"
-echo "  password   : $password"
-echo "  login      : $login"
-echo "  image      : $image"
-echo "  tag        : $tag"
-echo "  dockerfile : $dockerfile"
 
 case "$tag" in
     *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
