@@ -8,7 +8,7 @@ function login { ## regirtry login password
 
 function build { ## dockerfile image
     echo "=> docker build $1"
-    docker build -f $1--rm -t $2 .
+    docker build -f $1 --rm -t $2 .
 }
 
 function push { ## image
