@@ -29,6 +29,13 @@ tag=$INPUT_TAG
 dockerfile=$INPUT_DOCKERFILE
 registry=$(echo $image | cut -f1 -d"/")
 
+echo "summary:"
+echo "  password   : $password"
+echo "  login      : $login"
+echo "  image      : $image"
+echo "  tag        : $tag"
+echo "  dockerfile : $dockerfile"
+
 case "$tag" in
     *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
                             switch_image "$image" "$tag" "prod" "dev"

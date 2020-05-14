@@ -50,10 +50,10 @@ inputs:
   tag:
     description: "tag wanted for this image"
     require: true
-  dokerfile:
+  dockerfile:
     description: "name of the dockerfile"
     require: false
-    default: "Dokerfile"
+    default: "Dockerfile"
 outputs:
   tag:
     description: 'Is the tag, which was pushed'
