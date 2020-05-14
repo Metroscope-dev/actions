@@ -1,8 +1,11 @@
 name: "kubernetes-deployment"
 description: "kubernetes rolling update management"
 inputs:
-  kubeconfig:
-    description: "kubeconfig content"
+  json_key:
+    description: "service account key json encode in base64"
+    required: true
+  cluster:
+    description: "cluster name"
     required: true
   image:
     description: "docker image <docker_image>:<tag>"
@@ -19,7 +22,8 @@ runs:
   using: 'docker'
   image: 'dockerfile'
   args:
-    - ${{ inputs.kubeconfig }}
+    - ${{ inputs.json_key }}
+    - ${{ inputs.cluster }}
     - ${{ inputs.image }}
     - ${{ inputs.deployment }}
     - ${{ inputs.container }}
