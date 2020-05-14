@@ -1,8 +1,5 @@
 FROM docker:19.03.2 as runtime
-LABEL "repository"="https://github.com/Metroscope-dev/actions"
 LABEL "maintainer"="Metroscope"
-
-COPY . .
 
 RUN apk update \
   && apk upgrade \
@@ -11,3 +8,5 @@ RUN apk update \
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
+FROM runtime
