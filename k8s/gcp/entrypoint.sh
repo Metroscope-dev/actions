@@ -1,20 +1,31 @@
-#!/bin/bash
+#!/bin/sh
 
-echo "=> summary:"
-echo "  json_key: $INPUT_JSON_KEY"
-echo "  cluster: $INPUT_CLUSTER"
-echo "  image: $INPUT_IMAGE"
-echo "  deployment: $INPUT_DEPLOYMENT"
-echo "  container: $INPUT_CONTAINER"
+set -e
 
+if [ ! -d "$HOME/.config/gcloud" ]; then
+   if [ -z "${APPLICATION_CREDENTIALS-}" ]; then
+      echo "APPLICATION_CREDENTIALS not found. Exiting...."
+      exit 1
+   fi
 
-base64 --decode <<< $INPUT_JSON_KEY > gcloud-service-key.json
-project=$(cat gcloud-service-key.json | jq '.project_id')
-account=$(cat gcloud-service-key.json | jq '.client_email')
-echo -e "=> project: $project"
-echo -e "=> account: $account"
-gcloud auth activate-service-account $account --key-file=./gcloud-service-key.json --project=$project
-gcloud config set project $project
-gcloud container clusters get-credentials $INPUT_CLUSTER --project $project
-# kubectl get nodes
-# echo "::set-output name=current::{$cluster##*:}"
+   if [ -z "${PROJECT_ID-}" ]; then
+      echo "PROJECT_ID not found. Exiting...."
+      exit 1
+   fi
+
+   echo "$APPLICATION_CREDENTIALS" | base64 -d > /tmp/account.json
+
+   gcloud auth activate-service-account --key-file=/tmp/account.json --project "$PROJECT_ID"
+
+fi
+
+echo ::add-path::/google-cloud-sdk/bin/gcloud
+echo ::add-path::/google-cloud-sdk/bin/gsutil
+
+# Update kubeConfig.
+gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$ZONE_NAME" --project "$PROJECT_ID"
+
+# verify kube-context
+kubectl config current-context
+
+# sh -c "kubectl "
