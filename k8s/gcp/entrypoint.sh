@@ -17,7 +17,7 @@ echo ::add-path::/google-cloud-sdk/bin/gcloud
 echo ::add-path::/google-cloud-sdk/bin/gsutil
 
 # Update kubeConfig.
-gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$ZONE_NAME" --project "$PROJECT_ID"
+gcloud container clusters get-credentials "$CLUSTER_NAME" --project "$project_id" #--zone "$ZONE_NAME"
 
 # verify kube-context
 kubectl config current-context
