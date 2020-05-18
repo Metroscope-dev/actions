@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 update () { ## deployment container image
@@ -13,7 +13,7 @@ switch_image () { ## image tag current_repo wanted_repo
 
 get_credentials () {
     if [ ! -d "$HOME/.config/gcloud" ]; then
-        if [ -z "${INPUT_APPLICATION_CREDENTIALS-}" ]; then
+        if [ -z "${APPLICATION_CREDENTIALS-}" ]; then
             echo "APPLICATION_CREDENTIALS not found. Exiting...."
             exit 1
         fi
@@ -25,7 +25,7 @@ get_credentials () {
     echo ::add-path::/google-cloud-sdk/bin/gsutil
 
     # Update kubeConfig.
-    gcloud container clusters get-credentials "$INPUT_CLUSTER_NAME" --project "$project_id" --zone "$INPUT_ZONE"
+    gcloud container clusters get-credentials "$CLUSTER_NAME" --project "$project_id" --zone "$ZONE"
 }
 
 image=$INPUT_IMAGE

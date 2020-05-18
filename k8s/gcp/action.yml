@@ -2,42 +2,42 @@ name: 'kubectl - GKE'
 author: "Metroscope"
 description: 'GitHub Action to perform GKE/k8s rolling update'
 inputs:
-  # APPLICATION_CREDENTIALS:
-  #   description: 'GCP authorization credentials'
-  #   required: true
-  # PROJECT_ID:
-  #   description: 'Project id'
-  #   required: true
-  # CLUSTER_NAME:
-  #   description: 'GKE Cluser Name'
-  #   required: true
-  # ZONE_NAME:
-  #   description: 'Zone Name'
-  #   required: true
-  application_credentials:
+  APPLICATION_CREDENTIALS:
     description: 'GCP authorization credentials'
     required: true
-  project_id:
+  PROJECT_ID:
     description: 'Project id'
     required: true
-  cluster_name:
+  CLUSTER_NAME:
     description: 'GKE Cluser Name'
     required: true
-  zone:
+  ZONE_NAME:
     description: 'Zone Name'
     required: true
-  image:
-    description: "image to deploy <registry>/<repo>/<image>"
-    required: true
-  tag:
-    description: "tag wanted"
-    required: true
-  deployment:
-    description: "selected deployment"
-    required: true
-  container:
-    description: "Container to update"
-    required: true
+  # application_credentials:
+  #   description: 'GCP authorization credentials'
+  #   required: true
+  # project_id:
+  #   description: 'Project id'
+  #   required: true
+  # cluster_name:
+  #   description: 'GKE Cluser Name'
+  #   required: true
+  # zone:
+  #   description: 'Zone Name'
+  #   required: true
+  # image:
+  #   description: "image to deploy <registry>/<repo>/<image>"
+  #   required: true
+  # tag:
+  #   description: "tag wanted"
+  #   required: true
+  # deployment:
+  #   description: "selected deployment"
+  #   required: true
+  # container:
+  #   description: "Container to update"
+  #   required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
