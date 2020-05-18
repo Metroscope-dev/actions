@@ -16,7 +16,7 @@ function push { ## image
     docker push $1
 }
 
-function switch_image { ## image tag current_repo tag wanted_repo image
+function switch_image { ## image tag current_repo wanted_repo
     echo "> switch from repo $3 to $4"
     image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
 }
