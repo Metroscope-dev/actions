@@ -34,14 +34,9 @@ if [ ! -d "$HOME/.config/gcloud" ]; then
    echo "$APPLICATION_CREDENTIALS" | base64 -d > /tmp/account.json
 
    project_id=$(cat /tmp/account.json | jq -r '.project_id')
-   echo "project ID: $project_id"
-   echo "project ID: $project_id" | cat -e
    gcloud auth activate-service-account --key-file=/tmp/account.json --project $project_id
 
 fi
-
-echo "project ID: $project_id"
-echo "project ID: $project_id" | cat -e
 
 
 echo ::add-path::/google-cloud-sdk/bin/gcloud
