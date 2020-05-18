@@ -25,7 +25,7 @@ function get_credentials {
     echo ::add-path::/google-cloud-sdk/bin/gsutil
 
     # Update kubeConfig.
-    gcloud container clusters get-credentials "$INPUT_CLUSTER_NAME" --project "$project_id" --zone "$INPUT_ZONE_NAME"
+    gcloud container clusters get-credentials "$INPUT_CLUSTER_NAME" --project "$project_id" --zone "$INPUT_ZONE"
 }
 
 image=$INPUT_IMAGE

@@ -2,16 +2,28 @@ name: 'kubectl - GKE'
 author: "Metroscope"
 description: 'GitHub Action to perform GKE/k8s rolling update'
 inputs:
-  APPLICATION_CREDENTIALS:
+  # APPLICATION_CREDENTIALS:
+  #   description: 'GCP authorization credentials'
+  #   required: true
+  # PROJECT_ID:
+  #   description: 'Project id'
+  #   required: true
+  # CLUSTER_NAME:
+  #   description: 'GKE Cluser Name'
+  #   required: true
+  # ZONE_NAME:
+  #   description: 'Zone Name'
+  #   required: true
+  application_credentials:
     description: 'GCP authorization credentials'
     required: true
-  PROJECT_ID:
+  project_id:
     description: 'Project id'
     required: true
-  CLUSTER_NAME:
+  cluster_name:
     description: 'GKE Cluser Name'
     required: true
-  ZONE_NAME:
+  zone:
     description: 'Zone Name'
     required: true
   image:
