@@ -1,17 +1,17 @@
 #!/bin/sh
 set -e
 
-function update { ## deployment container image
+update () { ## deployment container image
     echo "=> Update deployment $1/$2 image: $3"
     kubectl set image "deployment/$1 $2=$3" --record
 }
 
-function switch_image { ## image tag current_repo wanted_repo
+switch_image () { ## image tag current_repo wanted_repo
     echo "> switch from repo $3 to $4"
     image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
 }
 
-function get_credentials {
+get_credentials () {
     if [ ! -d "$HOME/.config/gcloud" ]; then
         if [ -z "${INPUT_APPLICATION_CREDENTIALS-}" ]; then
             echo "APPLICATION_CREDENTIALS not found. Exiting...."
@@ -41,5 +41,6 @@ case "$INPUT_TAG" in
                             ;;
 esac
 
+get_credentials
 echo "> $image"
 kubectl get nodes
