@@ -1,25 +1,9 @@
 #!/bin/sh
 set -e
 
-# update () { ## deployment container image
-#     echo "=> Update deployment $1/$2 image: $3"
-#     kubectl set image "deployment/$1 $2=$3" --record
-# }
-
-# switch_image () { ## image tag current_repo wanted_repo
-#     echo "> switch from repo $3 to $4"
-#     image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
-# }
-
-# case "$INPUT_TAG" in
-#     *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
-#                             switch_image "$image" "$tag" "prod" "dev"
-#                             ;;
-#     *)                      echo "=> create and push prod version : $VERSION"
-#                             switch_image "$image" "$tag" "dev" "prod"
-#                             ;;
-# esac
-
+########################################
+#           Fetch kubeconfig           #
+########################################
 if [ ! -d "$HOME/.config/gcloud" ]; then
    if [ -z "${APPLICATION_CREDENTIALS-}" ]; then
       echo "APPLICATION_CREDENTIALS not found. Exiting...."
@@ -47,9 +31,28 @@ gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$ZONE_NAME" --
 
 # verify kube-context
 kubectl config current-context
-kubectl get deployment
-# sh -c "kubectl $*"
 
-# sh -c "kubectl "
-# image=$INPUT_IMAGE
-# registry=$(echo $INPUT_IMAGE | cut -f1 -d"/")
+
+########################################
+#         rolling update image         #
+########################################
+update () { ## deployment container image
+    echo "=> Update deployment $1/$2 image: $3"
+    kubectl set image deployment/$1 $2=$3 --record
+}
+
+switch_image () { ## image tag current_repo wanted_repo
+    echo "> switch from repo $3 to $4"
+    image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
+}
+
+case "$INPUT_TAG" in
+    *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
+                            switch_image "$INPUT_IMAGE" "$INPUT_TAG" "prod" "dev"
+                            ;;
+    *)                      echo "=> create and push prod version : $VERSION"
+                            switch_image "$INPUT_IMAGE" "$INPUT_TAG" "dev" "prod"
+                            ;;
+esac
+
+update $INPUT_DEPLOYMENT $INPUT_CONTAINER $image
