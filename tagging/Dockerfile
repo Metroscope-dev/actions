@@ -8,4 +8,4 @@ RUN apk --update add git less openssh && \
 
 COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh", "${GITHUB_REF}"]

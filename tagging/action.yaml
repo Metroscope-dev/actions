@@ -1,10 +1,10 @@
 name: 'Define tag'
 author: 'Metroscope'
 description: 'Define the right tag, if no git tag is present create a yy.mm-DEVXXX version or return the current git tag'
-inputs:
-  git_tag:
-    description: 'git tag'
-    required: false
+# inputs:
+#   git_tag:
+#     description: 'git tag'
+#     required: false
 outputs:
   tag:
     description: 'Tag defined by the action'
