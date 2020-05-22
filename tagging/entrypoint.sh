@@ -36,9 +36,7 @@ performTagging() {
 }
 
 
-# git fetch --all --tags
-
-# github_ref=${GITHUB_REF}
+git fetch --all --tags
 grep -q "tags" | $1 && git_tag=${1/refs\/tags\//} || git_tag=""
 if [ ! -z $git_tag ];
 then
