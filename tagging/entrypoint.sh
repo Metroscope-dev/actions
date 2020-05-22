@@ -31,13 +31,16 @@ setTargetTag() {
 }
 
 performTagging() {
-    echo "Creating and pushing tag: '${targetTag}'"
+    # echo "Creating and pushing tag: '${targetTag}'"
     echo ::set-output name=tag::$targetTag
 }
 
 
-git fetch --all --tags
-if [ $# == 1 ] && [ ! -z $1 ];
+# git fetch --all --tags
+echo "-----------------------------------------"
+echo "GIT_TAG : $INPUT_GIT_TAG"
+echo "-----------------------------------------"
+if [ ! -z $INPUT_GIT_TAG ];
 then
     targetTag=$1
 else
