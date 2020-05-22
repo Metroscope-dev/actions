@@ -1,6 +1,6 @@
 name: 'Build and publish Docker'
 author: 'Metroscope'
-description: 'Uses the git branch as the docker tag and pushes the container'
+description: 'Uses the git tag as the docker tag and pushes the container'
 inputs:
   registry_password:
     description: 'password of the registry'
