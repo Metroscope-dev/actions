@@ -36,13 +36,16 @@ performTagging() {
 }
 
 
-# git fetch --all --tags
+git fetch --all --tags
+git_tag=${INPUT_GIT_REF##*/}
 echo "------------------------------------------"
-echo "GIT_TAG : $INPUT_GIT_TAG"
+echo "GIT_REF : $INPUT_GIT_REF"
+echo "git_tag:  $git_tag"
 echo "------------------------------------------"
-if [ ! -z $INPUT_GIT_TAG ];
+if [ ! -z $git_tag ];
 then
-    targetTag=$1
+    echo "no empty tag so use $git"
+    targetTag=$git_tag
 else
     setTargetTag
 fi
