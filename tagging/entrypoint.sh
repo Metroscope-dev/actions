@@ -38,18 +38,15 @@ performTagging() {
 
 git fetch --all --tags
 github_ref=${GITHUB_REF}
-git_tag_bash=${github_ref##*/}
-git_tag_sh=$(echo $github_ref | cut -d / -f 3)
+git_tag=${github_ref##*/}
 echo "------------------------------------------"
-echo "argument: $1"
-echo "git_tag_bash : $git_tag_bash"
-echo "git_tag_sh:  $git_tag_sh"
+echo "git tag: $git_tag"
 echo "------------------------------------------"
-# if [ ! -z $git_tag ];
-# then
-#     echo "no empty tag so use $git"
-#     targetTag=$git_tag
-# else
-#     setTargetTag
-# fi
-# performTagging
+if [ ! -z $git_tag ];
+then
+    echo "no empty tag so use $git"
+    targetTag=$git_tag
+else
+    setTargetTag
+fi
+performTagging
