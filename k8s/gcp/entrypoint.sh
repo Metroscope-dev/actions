@@ -46,6 +46,10 @@ switch_image () { ## image tag current_repo wanted_repo
     image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
 }
 
+echo "-------------------------"
+echo "which sh: $(readlink -f $(which bash))"
+echo "-------------------------"
+
 github_ref=${GITHUB_REF}
 tag=${github_ref/refs\/tags\//}
 
