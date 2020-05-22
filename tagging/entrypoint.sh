@@ -38,7 +38,7 @@ performTagging() {
 
 git fetch --all --tags
 github_ref=${GITHUB_REF}
-git_tag=${github_ref##*/}
+git_tag=${github_ref/refs\/tags\//}
 echo "------------------------------------------"
 echo "git tag: $git_tag"
 echo "------------------------------------------"
