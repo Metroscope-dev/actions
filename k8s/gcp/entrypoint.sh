@@ -56,3 +56,5 @@ case "$INPUT_TAG" in
 esac
 
 update $INPUT_DEPLOYMENT $INPUT_CONTAINER $image
+
+## TODO rollout version after X seconds
