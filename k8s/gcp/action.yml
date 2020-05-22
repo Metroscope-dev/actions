@@ -17,9 +17,9 @@ inputs:
   image:
     description: 'image to deploy <registry>/<repo>/<image>'
     required: true
-  tag:
-    description: 'tag wanted'
-    required: true
+  # tag:
+  #   description: 'tag wanted'
+  #   required: true
   deployment:
     description: 'selected deployment'
     required: true

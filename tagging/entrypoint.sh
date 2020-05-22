@@ -44,7 +44,6 @@ echo "git tag: $git_tag"
 echo "------------------------------------------"
 if [ ! -z $git_tag ];
 then
-    echo "no empty tag so use $git"
     targetTag=$git_tag
 else
     setTargetTag

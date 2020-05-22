@@ -24,7 +24,9 @@ function switch_image { ## image tag current_repo wanted_repo
 password=$INPUT_REGISTRY_PASSWORD
 login=$INPUT_REGISTRY_LOGIN
 image=$INPUT_IMAGE
-tag=$INPUT_TAG
+github_ref=${GITHUB_REF}
+tag=${github_ref##*/}
+# tag=$INPUT_TAG
 dockerfile=$INPUT_DOCKERFILE
 registry=$(echo $image | cut -f1 -d"/")
 

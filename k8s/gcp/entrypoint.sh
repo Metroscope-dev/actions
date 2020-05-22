@@ -46,12 +46,15 @@ switch_image () { ## image tag current_repo wanted_repo
     image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
 }
 
-case "$INPUT_TAG" in
+github_ref=${GITHUB_REF}
+tag=${github_ref##*/}
+
+case "$tag" in
     *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
-                            switch_image "$INPUT_IMAGE" "$INPUT_TAG" "prod" "dev"
+                            switch_image "$INPUT_IMAGE" "$tag" "prod" "dev"
                             ;;
     *)                      echo "=> create and push prod version : $VERSION"
-                            switch_image "$INPUT_IMAGE" "$INPUT_TAG" "dev" "prod"
+                            switch_image "$INPUT_IMAGE" "$tag" "dev" "prod"
                             ;;
 esac
 
