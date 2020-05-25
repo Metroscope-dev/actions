@@ -6,19 +6,19 @@ function login { ## regirtry login password
     echo $3 | docker login -u $2 --password-stdin $1
 }
 
-function build { ## dockerfile image
+function build { ## dockerfile image tag
     echo "=> docker build $2"
-    docker build -f $1 -t $2 .
+    docker build -f $1 -t $2:$3 -t $2:"latest" .
 }
 
-function push { ## image
-    echo "=> docker push $1"
-    docker push $1
+function push { ## image tag
+    echo "=> docker push $1:$2"
+    docker push $1:$2
 }
 
-function switch_image { ## image tag current_repo wanted_repo
-    echo "> switch from repo $3 to $4"
-    image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
+function switch_image { ## image current_repo wanted_repo
+    echo "> switch from repo $2 to $3"
+    image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$2/harbor.metroscope.tech\/$3/g")
 }
 
 password=$INPUT_REGISTRY_PASSWORD
@@ -41,5 +41,6 @@ esac
 echo "> $image"
 
 login $registry $login $password
-build $dockerfile $image
-push  $image
+build $dockerfile $image $tag
+push  $image $tag
+push  $image "latest"
