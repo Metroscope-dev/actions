@@ -1,5 +1,5 @@
 #!/bin/sh
-set -o errexit
+set -eo errexit
 
 latestTag=''
 latestIncrement=0
@@ -30,19 +30,23 @@ setTargetTag() {
     echo "Target tag: '${targetTag}'"
 }
 
-performTagging() {
-    # echo "Creating and pushing tag: '${targetTag}'"
-    echo ::set-output name=tag::$targetTag
-}
+# performTagging() {
+#     # echo "Creating and pushing tag: '${targetTag}'"
+# }
 
 
-git fetch --all --tags
+# define targetTag
 github_ref=${GITHUB_REF}
-grep -q "tags" | $github_ref && git_tag=${github_ref/refs\/tags\//} || git_tag=""
-if [ ! -z $git_tag ];
-then
-    targetTag=$git_tag
-else
-    setTargetTag
-fi
-performTagging
+git fetch --all --tags
+setTargetTag
+
+# Overwrite targetTag if the user already defined one
+echo $github_ref | grep -q "tags" && targetTag="${github_ref/refs\/tags\//}"
+# if [ ! -z $git_tag ];
+# then
+#     targetTag=$git_tag
+# else
+#     setTargetTag
+# fi
+# performTagging
+echo ::set-output name=tag::$targetTag
