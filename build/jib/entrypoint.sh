@@ -7,7 +7,7 @@ switch_repo () { ## from to
 }
 
 switch_tag () {
-    echo "use tag $1"
+    echo "use tag $1 and latest"
     find . -type f -name '*.gradle' | xargs sed -i "/version.=./c\version = \"$1\""
 }
 
