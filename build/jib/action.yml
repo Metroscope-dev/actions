@@ -2,16 +2,16 @@ name: 'Build and publish Docker'
 author: 'Metroscope'
 description: 'Uses the git tag as the docker tag and pushes the container'
 inputs:
-  registry_password:
+  REGISTRY_PASSWORD:
     description: 'password of the registry'
     required: true
-  registry_user:
+  REGISTRY_USER:
     description: 'login of the registry'
     required: true
-  jfrog_user:
+  JFROG_USER:
     description: jfrog login
     required: true
-  jfrog_password:
+  JFROG_PASSWORD:
     description: jfrog password
     required: true
 runs:
