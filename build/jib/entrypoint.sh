@@ -17,11 +17,11 @@ tag=${github_ref/refs\/tags\//}
 case "$tag" in
     *"DEV"* )     echo "=> create and push dev version : $VERSION"
                   switch_repo "prod" "dev"
-                  switch_tag $VERSION
+                  switch_tag $tag
                   ;;
     *)            echo "=> create and push prod version : $VERSION"
                   switch_repo "dev" "prod"
-                  switch_tag $VERSION
+                  switch_tag $tag
                   ;;
 esac
 echo "> $image"
