@@ -1,0 +1,19 @@
+name: 'Build and publish Docker'
+author: 'Metroscope'
+description: 'Uses the git tag as the docker tag and pushes the container'
+inputs:
+  registry_password:
+    description: 'password of the registry'
+    required: true
+  registry_user:
+    description: 'login of the registry'
+    required: true
+  jfrog_user:
+    description: jfrog login
+    required: true
+  jfrog_password:
+    description: jfrog password
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

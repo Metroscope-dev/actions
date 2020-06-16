@@ -30,6 +30,7 @@ tag=${github_ref/refs\/tags\//}
 dockerfile=$INPUT_DOCKERFILE
 registry=$(echo $image | cut -f1 -d"/")
 
+## TODO delete latest because it's a defautl
 case "$tag" in
     *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
                             switch_image "$image" "prod" "dev"
