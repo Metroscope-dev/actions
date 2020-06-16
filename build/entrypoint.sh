@@ -32,10 +32,10 @@ registry=$(echo $image | cut -f1 -d"/")
 
 case "$tag" in
     *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
-                            switch_image "$image" "$tag" "prod" "dev"
+                            switch_image "$image" "prod" "dev"
                             ;;
     *)                      echo "=> create and push prod version : $VERSION"
-                            switch_image "$image" "$tag" "dev" "prod"
+                            switch_image "$image" "dev" "prod"
                             ;;
 esac
 echo "> $image"
