@@ -26,6 +26,9 @@ inputs:
   container:
     description: 'Container to update'
     required: true
+outputs:
+  slack_message:
+    description: 'message which can be send to slack in order to describe the new deployed version '
 runs:
   using: 'docker'
   image: 'Dockerfile'
