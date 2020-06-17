@@ -69,7 +69,7 @@ case "$tag" in
 esac
 
 update $INPUT_DEPLOYMENT $INPUT_CONTAINER $image
-slack_message="{\"color\":\"#3278BD\",\"fields\":[{\"title\":\"VERSION\",\"value\":\"$github_ref\",\"short\":true},{\"title\":\"Event\",\"value\":\"${GITHUB_EVENT_NAME}\",\"short\":true},{\"title\":\"Actions URL\",\"value\":\"<https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks>\",\"short\":false},{\"title\":\"Déployment :rocket:\",\"value\":\"Version $tag has been deployed\",\"short\":false}]}"
+slack_message="{\"color\":\"#5CE02E\",\"fields\":[{\"title\":\"VERSION\",\"value\":\"$github_ref\",\"short\":true},{\"title\":\"Event\",\"value\":\"${GITHUB_EVENT_NAME}\",\"short\":true},{\"title\":\"Actions URL\",\"value\":\"<https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks>\",\"short\":false},{\"title\":\"Déployment :rocket:\",\"value\":\"Version $tag has been deployed :100:\",\"short\":false}]}"
 
 echo "$slack_message"
 echo ::set-output name=slack_message::$slack_message
