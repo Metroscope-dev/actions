@@ -10,4 +10,4 @@ outputs:
     description: 'Tag defined by the action'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://harbor.metroscope.tech/actions/tagging:1.0.0'
