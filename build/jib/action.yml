@@ -16,4 +16,4 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://harbor.metroscope.tech/actions/build/jib:1.0.0'
