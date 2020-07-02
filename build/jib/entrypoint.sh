@@ -25,4 +25,4 @@ case "$tag" in
                   ;;
 esac
 echo "> $image"
-./gradlew --no-daemon jib
+./gradlew --no-daemon artifactoryPublish jib
