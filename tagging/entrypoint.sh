@@ -37,7 +37,7 @@ setTargetTag() {
 
 # define targetTag
 github_ref=${GITHUB_REF}
-git fetch --all --tags
+git fetch --all --tags -f
 setTargetTag
 
 # Overwrite targetTag if the user already defined one
