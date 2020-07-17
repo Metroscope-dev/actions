@@ -17,9 +17,6 @@ inputs:
   image:
     description: 'image to deploy <registry>/<repo>/<image>'
     required: true
-  # tag:
-  #   description: 'tag wanted'
-  #   required: true
   deployment:
     description: 'selected deployment'
     required: true
@@ -31,4 +28,4 @@ outputs:
     description: 'message which can be send to slack in order to describe the new deployed version '
 runs:
   using: 'docker'
-  image: 'docker://harbor.metroscope.tech/actions/k8s/gcp:1.0.0'
+  image: 'Dockerfile'

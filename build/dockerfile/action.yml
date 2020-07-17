@@ -20,4 +20,4 @@ inputs:
     default: 'Dockerfile'
 runs:
   using: 'docker'
-  image: 'docker://harbor.metroscope.tech/actions/build/dockerfile:1.0.0'
+  image: 'Dockerfile'
