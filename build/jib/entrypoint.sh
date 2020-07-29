@@ -25,6 +25,7 @@ case "$tag" in
                   ;;
 esac
 echo "> $image"
+
 ./gradlew --no-daemon jib
 
-## TODO add env variable 'artifactoryPublish=true' to action.yaml make condition and ./gradlew --no-daemon artifactoryPublish
+[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish

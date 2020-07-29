@@ -14,6 +14,10 @@ inputs:
   JFROG_PASSWORD:
     description: jfrog password
     required: true
+  ARTIFACTORYPUBLISH:
+    description: push doc and jar file on jfrog
+    required: false
+    default: 'false'
 runs:
   using: 'docker'
   image: 'Dockerfile'
