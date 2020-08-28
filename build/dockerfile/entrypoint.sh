@@ -17,6 +17,12 @@ function push { ## image tag
     docker push $1:latest
 }
 
+function switch_tag { ## input_image tag image
+    echo -e "\n=> retag image dev to prod"
+    docker tag $1:$2 $3:$2
+    docker tag $1:"latest" $3:"latest"
+}
+
 function switch_image { ## image current_repo wanted_repo
     echo -e "\n> switch from repo $2 to $3"
     image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$2/harbor.metroscope.tech\/$3/g")
@@ -36,5 +42,5 @@ case "$tag" in
                             switch_image "$INPUT_IMAGE" "dev" "prod"
                             ;;
 esac
-build $INPUT_DOCKERFILE $image $tag
+switch_tag $INPUT_IMAGE $tag $image
 push  $image $tag
