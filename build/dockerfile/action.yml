@@ -11,9 +11,9 @@ inputs:
   image:
     description: 'full name of the image <registry>/<repo>/<name> without tag'
     required: true
-  # tag:
-  #   description: 'tag wanted for this image'
-  #   required: true
+  tag:
+    description: 'tag wanted for this image'
+    required: true
   dockerfile:
     description: 'name of the dockerfile'
     required: false
