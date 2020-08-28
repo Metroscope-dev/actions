@@ -6,13 +6,13 @@ inputs:
     description: 'GCP authorization credentials'
     required: true
   PROJECT_ID:
-    description: 'Project id'
+    description: 'project id'
     required: true
   CLUSTER_NAME:
     description: 'GKE Cluser Name'
     required: true
   ZONE_NAME:
-    description: 'Zone Name'
+    description: 'zone Name'
     required: true
   image:
     description: 'image to deploy <registry>/<repo>/<image>'
@@ -21,7 +21,10 @@ inputs:
     description: 'selected deployment'
     required: true
   container:
-    description: 'Container to update'
+    description: 'container to update'
+    required: true
+  tag:
+    decription: 'tag of the image'
     required: true
 outputs:
   slack_message:

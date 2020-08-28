@@ -46,18 +46,8 @@ switch_image () { ## image tag current_repo wanted_repo
     image=$(echo "$1" | sed "s/harbor.metroscope.tech\/$3/harbor.metroscope.tech\/$4/g"):$2
 }
 
-echo "-------------------------"
-echo "which sh: $(readlink -f $(which bash))"
-
 github_ref=${GITHUB_REF}
-tag=${github_ref##*/}
-# tag=${github_ref/refs\/tags\//}
-
-echo "github_ref : ${GITHUB_REF}"
-echo "tag        : $tag"
-echo "-------------------------"
-
-
+tag=${INPUT_TAG##*/}
 
 case "$tag" in
     *"DEV"* | "latest")     echo "=> create and push dev version : $VERSION"
