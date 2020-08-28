@@ -33,8 +33,8 @@ case "$tag" in
     *"DEV"* | "latest")     exit 0
                             ;;
     *)                      echo "=> create and push prod version : [ $tag, latest ]"
-                            switch_image "$image" "dev" "prod"
+                            switch_image "$INPUT_IMAGE" "dev" "prod"
                             ;;
 esac
-build $INPUT_DOCKERFILE $INPUT_IMAGE $tag
-push  $INPUT_IMAGE $tag
+build $INPUT_DOCKERFILE $image $tag
+push  $image $tag
