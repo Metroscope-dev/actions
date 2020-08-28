@@ -2,6 +2,15 @@
 set -e
 
 ########################################
+#      init slack error message        #
+########################################
+tag=${INPUT_TAG##*/}
+project=$(echo $INPUT_IMAGE | cut -d"/" -f3):$tag
+slack_message="{\"color\":\"#D63512\",\"fields\":[{\"title\":\"Cluster\",\"value\":\"${CLUSTER_NAME}\",\"short\":true},{\"title\":\"Event\",\"value\":\"${GITHUB_EVENT_NAME}\",\"short\":true},{\"title\":\"Actions URL\",\"value\":\"<https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks>\",\"short\":false},{\"title\":\"Déployment :smiling_imp:\",\"value\":\"Error: Project \`$project\` hasn't been deployed :sob:\",\"short\":false}]}"
+echo ::set-output name=slack_message::$slack_message
+
+
+########################################
 #           Fetch kubeconfig           #
 ########################################
 if [ ! -d "$HOME/.config/gcloud" ]; then
@@ -39,10 +48,10 @@ update () { ## deployment container image
     kubectl set image deployment/$1 $2=$3 --record
 }
 
-tag=${INPUT_TAG##*/}
-
+# tag=${INPUT_TAG##*/}
+# project=$(echo $INPUT_IMAGE | cut -d"/" -f3):$tag
 update $INPUT_DEPLOYMENT $INPUT_CONTAINER $INPUT_IMAGE:$tag
-slack_message="{\"color\":\"#5CE02E\",\"fields\":[{\"title\":\"VERSION\",\"value\":\"${tag}\",\"short\":true},{\"title\":\"Event\",\"value\":\"${GITHUB_EVENT_NAME}\",\"short\":true},{\"title\":\"Actions URL\",\"value\":\"<https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks>\",\"short\":false},{\"title\":\"Déployment :rocket:\",\"value\":\"Version $tag has been deployed :100:\",\"short\":false}]}"
+slack_message="{\"color\":\"#5CE02E\",\"fields\":[{\"title\":\"Cluster\",\"value\":\"${CLUSTER_NAME}\",\"short\":true},{\"title\":\"Event\",\"value\":\"${GITHUB_EVENT_NAME}\",\"short\":true},{\"title\":\"Actions URL\",\"value\":\"<https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks>\",\"short\":false},{\"title\":\"Déployment :rocket:\",\"value\":\"Project \`$project\` has been deployed :100:\",\"short\":false}]}"
 
 echo "$slack_message"
 echo ::set-output name=slack_message::$slack_message
