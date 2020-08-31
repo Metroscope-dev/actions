@@ -19,12 +19,12 @@ case "$tag" in
     *"DEV"* | "latest")     exit 0
                             ;;
     *)                      echo "=> create and push prod version : [ $tag, latest ]"
-                            switch_image "dev" "prod"
+                            switch_repo "dev" "prod"
                             ;;
 esac
 ./gradlew --no-daemon jib
 
-[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish
+[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish || exit 0
 
 
 
