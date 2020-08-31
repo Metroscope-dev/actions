@@ -18,6 +18,9 @@ inputs:
     description: push doc and jar file on jfrog
     required: false
     default: 'false'
+  TAG:
+    description: 'tag wanted'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
