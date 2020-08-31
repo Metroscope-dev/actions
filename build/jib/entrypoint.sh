@@ -25,26 +25,3 @@ esac
 ./gradlew --no-daemon jib
 
 [[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish || exit 0
-
-
-
-
-
-# github_ref=${GITHUB_REF}
-# tag=${github_ref/refs\/tags\//}
-
-# case "$tag" in
-#     *"DEV"* )     echo "=> create and push dev version : $VERSION"
-#                   switch_repo "prod" "dev"
-#                   switch_tag $tag
-#                   ;;
-#     *)            echo "=> create and push prod version : $VERSION"
-#                   switch_repo "dev" "prod"
-#                   switch_tag $tag
-#                   ;;
-# esac
-# echo "> $image"
-
-# ./gradlew --no-daemon jib
-
-# [[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish
