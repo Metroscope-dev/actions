@@ -26,9 +26,12 @@ inputs:
   tag:
     decription: 'tag of the image'
     required: true
+  slack_webhook_url:
+    description: 'webhook url to contact slack'
+    required: true
 outputs:
   slack_message:
-    description: 'message which can be send to slack in order to describe the new deployed version '
+    description: 'message which can be send to slack in order to describe the new deployed version'
 runs:
   using: 'docker'
   image: 'Dockerfile'
