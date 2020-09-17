@@ -14,10 +14,10 @@ inputs:
   JFROG_PASSWORD:
     description: jfrog password
     required: true
-  ARTIFACTORYPUBLISH:
-    description: push doc and jar file on jfrog
-    required: false
-    default: 'false'
+  # ARTIFACTORYPUBLISH:
+  #   description: push doc and jar file on jfrog
+  #   required: false
+  #   default: 'false'
   TAG:
     description: 'tag wanted'
     required: true

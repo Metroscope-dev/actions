@@ -22,6 +22,8 @@ case "$tag" in
                             switch_repo "dev" "prod"
                             ;;
 esac
-./gradlew --no-daemon jib
+# ./gradlew --no-daemon jib
 
-[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish || exit 0
+echo $ARTIFACTORYPUBLISH
+[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && echo "send doc" || exit 0
+# [[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish || exit 0
