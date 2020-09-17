@@ -14,16 +14,15 @@ switch_tag () {
 tag=${INPUT_TAG##*/}
 switch_tag $tag
 ## Build dev version
-# ./gradlew --no-daemon jib
-echo "ARTIFACTORYPUBLISH : $ARTIFACTORYPUBLISH"
-[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && echo "send doc" || exit 0
+./gradlew --no-daemon jib
+
+## Create doc
+[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish
 case "$tag" in
     *"DEV"* | "latest")     exit 0
                             ;;
     *)                      echo "=> create and push prod version : [ $tag, latest ]"
                             switch_repo "dev" "prod"
+                            ./gradlew --no-daemon jib
                             ;;
 esac
-# ./gradlew --no-daemon jib
-
-# [[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish || exit 0
