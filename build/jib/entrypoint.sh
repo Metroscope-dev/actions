@@ -15,6 +15,8 @@ tag=${INPUT_TAG##*/}
 switch_tag $tag
 ## Build dev version
 # ./gradlew --no-daemon jib
+echo "ARTIFACTORYPUBLISH : $ARTIFACTORYPUBLISH"
+[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && echo "send doc" || exit 0
 case "$tag" in
     *"DEV"* | "latest")     exit 0
                             ;;
@@ -24,7 +26,4 @@ case "$tag" in
 esac
 # ./gradlew --no-daemon jib
 
-
-echo "ARTIFACTORYPUBLISH : $ARTIFACTORYPUBLISH"
-[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && echo "send doc" || exit 0
 # [[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish || exit 0
