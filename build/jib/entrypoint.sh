@@ -14,7 +14,7 @@ switch_tag () {
 tag=${INPUT_TAG##*/}
 switch_tag $tag
 ## Build dev version
-./gradlew --no-daemon jib
+# ./gradlew --no-daemon jib
 case "$tag" in
     *"DEV"* | "latest")     exit 0
                             ;;
