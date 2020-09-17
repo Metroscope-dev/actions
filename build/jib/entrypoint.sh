@@ -24,6 +24,7 @@ case "$tag" in
 esac
 # ./gradlew --no-daemon jib
 
-echo $ARTIFACTORYPUBLISH
+
+echo "ARTIFACTORYPUBLISH : $ARTIFACTORYPUBLISH"
 [[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && echo "send doc" || exit 0
 # [[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish || exit 0
