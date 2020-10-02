@@ -1,0 +1,8 @@
+name: 'gatlingOutputExtractor'
+description: 'Extract data from a gatling output'
+outputs:
+  message:
+    description: 'The json message'
+runs:
+  using: 'node12'
+  main: 'index.js'
