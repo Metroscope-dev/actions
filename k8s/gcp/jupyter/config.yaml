@@ -1,0 +1,142 @@
+proxy:
+  secretToken: dcf22fec3f72726a1022ed90be9343256a7dae3d59bf4a268c2e63e2a41e2789
+  service:
+    type: ClusterIP
+  annotations:
+    linkerd.io/inject: enabled
+hub:
+  cookieSecret: f70bad8cf40c738eeca5a068a618a269b06825bf819959c9ca3b6173e8e107b6
+  imagePullPolicy: IfNotPresent
+  baseUrl: /jupyter
+  annotations:
+    linkerd.io/inject: enabled
+  db:
+    pvc:
+      storage: 20Gi
+  initContainers:
+    - name: data-importer-init
+      image: harbor.metroscope.tech/prod/jhub-mongo-init:1.0.0
+      imagePullPolicy: Always
+      env:
+        - name: MONGO_HOST
+          valueFrom:
+            secretKeyRef:
+              key: host
+              name: jhub-dp-mongo
+        - name: MONGO_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: root_username
+              name: jhub-dp-mongo
+        - name: MONGO_ROOT_PASSWD
+          valueFrom:
+            secretKeyRef:
+              key: root_passwd
+              name: jhub-dp-mongo
+        - name: MONGO_AUTHSOURCE
+          value: admin
+        - name: MONGO_TOKEN_DATABASE
+          valueFrom:
+            secretKeyRef:
+              key: database
+              name: jhub-dp-mongo
+        - name: JHUBUSERNAME
+          valueFrom:
+            secretKeyRef:
+              key: jhubusername
+              name: jhub-dp-mongo
+        - name: JHUBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: jhubpassword
+              name: jhub-dp-mongo
+  extraConfig:
+    mtsAuthenticator.py: "import requests\nimport json\nfrom jupyterhub.auth import\
+      \ Authenticator\nfrom tornado import gen\nfrom traitlets import Unicode, Int,\
+      \ Bool, List, Union\n\n\n\nclass MyAuthenticator(Authenticator):\n  @gen.coroutine\n\
+      \  def authenticate(self, handler, data=None):\n    self.log.info('Entering\
+      \ custom auth!')\n    metroscope_api_base_url = os.getenv('METROSCOPE_API_BASE_URL_USER',\
+      \ None)\n\n    if metroscope_api_base_url is None:\n      self.log.error('Impossible\
+      \ to login: METROSCOPE_API_BASE_URL_USER not given')\n\n    else:\n      try:\n\
+      \        url='/'.join([metroscope_api_base_url, 'api', 'login'])\n        self.log.info('Using\
+      \ url:'+url)\n        authentication_result = requests.post(\n            url=url,\n\
+      \            headers={\"Content-Type\": \"application/json\"},\n           \
+      \ data=json.dumps({'email': data['username'], 'password': data['password']})\n\
+      \        )\n\n        status_code = authentication_result.status_code\n    \
+      \    self.log.error('authentication result - status_code: ' + str(status_code))\n\
+      \n        if status_code == 200:\n          token = authentication_result.json()['token']\n\
+      \          if 'PROJECT_GET_ALL' not in authentication_result.json()['applicationPermissions']:\n\
+      \            print(authentication_result.json())\n            self.log.info('Required\
+      \ permission is NOT available in the token')\n            return\n\n       \
+      \   return {\n            'name': data['username'],\n            'auth_state':\
+      \ {\n              'username': data['username'],\n              'password':\
+      \ data['password'],\n              'upstream_token': token\n             },\n\
+      \          }\n      except BaseException:\n          message = 'Got exception\
+      \ during authentication'\n          self.log.error(message + '\\n', exc_info=sys.exc_info())\n\
+      \n  @gen.coroutine\n  def pre_spawn_start(self, user, spawner):\n      \"\"\"\
+      Pass upstream_token to spawner via environment variable\"\"\"\n      auth_state\
+      \ = yield user.get_auth_state()\n      if not auth_state:\n          spawner.environment['UPSTREAM_TOKEN']\
+      \ = 'NO TOKEN'\n          return\n      # spawner.environment['UPSTREAM_TOKEN']\
+      \ = auth_state['upstream_token']\n      # spawner.environment['METROSCOPE_API_USER']\
+      \ = auth_state['username']\n      # spawner.environment['METROSCOPE_API_PASSWORD']\
+      \ = auth_state['password']\n\n      spawner.environment['UPSTREAM_TOKEN'] =\
+      \ auth_state['upstream_token']\n      spawner.environment['METROSCOPE_API_USER']\
+      \ = auth_state['username']\n      spawner.environment['METROSCOPE_API_PASSWORD']\
+      \ = auth_state['password']\n      spawner.environment['METROSCOPE_SERVER_TIMEZONE']\
+      \ = os.environ['METROSCOPE_SERVER_TIMEZONE']\n      spawner.environment['METROSCOPE_MONGODB_DP_HOST']\
+      \ = os.environ['METROSCOPE_MONGODB_DP_HOST']\n      spawner.environment['METROSCOPE_MONGODB_DP_PORT']\
+      \ = os.environ['METROSCOPE_MONGODB_DP_PORT']\n      spawner.environment['METROSCOPE_MONGODB_DP_NAME']\
+      \ = os.environ['METROSCOPE_MONGODB_DP_NAME']\n      spawner.environment['METROSCOPE_MONGODB_DP_USER']\
+      \ = os.environ['METROSCOPE_MONGODB_DP_USER']\n      spawner.environment['METROSCOPE_MONGODB_DP_PASSWORD']\
+      \ = os.environ['METROSCOPE_MONGODB_DP_USER']\n      spawner.environment['METROSCOPE_MONGODB_DP_NAME_COLLECTION_SNAPSHOTS']\
+      \ = os.environ['METROSCOPE_MONGODB_DP_NAME_COLLECTION_SNAPSHOTS']\n      spawner.environment['METROSCOPE_MONGODB_DP_NAME_COLLECTION_SENSORS_MEASUREMENTS_GROUPED_BY_MONTH']\
+      \ = os.environ['METROSCOPE_MONGODB_DP_NAME_COLLECTION_SENSORS_MEASUREMENTS_GROUPED_BY_MONTH']\n\
+      \      spawner.environment['METROSCOPE_OFFICIAL_URL'] = os.environ['METROSCOPE_API_BASE_URL']\n\
+      \      spawner.environment['METROSCOPE_API_BASE_URL_USER'] = 'http://user-svc.default.svc.cluster.local:8080/api'\n\
+      \      spawner.environment['METROSCOPE_API_BASE_URL_PROJECT'] = 'http://project-svc.default.svc.cluster.local:8080/api'\n\
+      \      spawner.environment['METROSCOPE_API_BASE_URL_ANALYSIS'] = 'http://analysis-svc.default.svc.cluster.local:8080/api'\n\
+      \      spawner.environment['METROSCOPE_API_BASE_URL_PROCESS'] = 'http://process-svc.default.svc.cluster.local:8080/api'\n\
+      c.JupyterHub.authenticator_class = MyAuthenticator\n"
+singleuser:
+  imagePullPolicy: IfNotPresent
+  image:
+    name: metroscope-official-docker-repo.jfrog.io/mts_setup_tools-jupyterlab
+    tag: 1.3.15
+    pullSecrets:
+      - harbor
+  extraAnnotations:
+    linkerd.io/inject: enabled
+  extraConfig: null
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - /bin/bash
+          - /scripts/start.sh
+  extraVolumes:
+    - name: jupyterhub-shared
+      persistentVolumeClaim:
+        claimName: jupyterhub-shared-volume
+  extraVolumeMounts:
+    - name: jupyterhub-shared
+      mountPath: /home/shared
+cull:
+  timeout: 900
+  every: 100
+auth:
+  state:
+    enabled: true
+    cryptoKey: 73519e7e82d3b8bc27759c5d8c876381ad893b9c9e55b958f1a7d45aef5f08c2
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    certmanager.k8s.io/acme-challenge-type: http01
+    nginx.ingress.kubernetes.io/proxy-body-size: 42m
+  tls:
+    - hosts:
+        - framatome.metroscope.tech
+      secretName: metroscope-jupyter-tls
+  hosts:
+    - framatome.metroscope.tech

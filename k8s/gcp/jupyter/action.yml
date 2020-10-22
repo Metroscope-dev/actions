@@ -1,0 +1,36 @@
+name: 'Helm jupyter - GKE'
+author: 'Metroscope'
+description: 'GitHub Action to perform GKE/helm/jupyterhub rolling update'
+inputs:
+  APPLICATION_CREDENTIALS:
+    description: 'GCP authorization credentials'
+    required: true
+  PROJECT_ID:
+    description: 'project id'
+    required: true
+  CLUSTER_NAME:
+    description: 'GKE Cluser Name'
+    required: true
+  ZONE_NAME:
+    description: 'zone Name'
+    required: true
+  image:
+    description: 'image to deploy <registry>/<repo>/<image>'
+    required: true
+  tag:
+    decription: 'tag of the image'
+    required: true
+  namespace:
+    description: 'namespace where jupyterhub is'
+    required: 'false'
+    default: 'jupyterhub'
+  release:
+    description: 'helm release name'
+    required: 'false'
+    default: 'jhub'
+outputs:
+  slack_message:
+    description: 'message which can be send to slack in order to describe the new deployed version'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

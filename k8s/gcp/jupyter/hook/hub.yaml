@@ -1,0 +1,117 @@
+- op: add
+  path: /spec/template/spec/imagePullSecrets
+  value:
+    - name: harbor
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_MONGODB_DP_HOST
+    valueFrom:
+      secretKeyRef:
+        name: jhub-dp-mongo
+        key: host
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_MONGODB_DP_PORT
+    value: '27017'
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_MONGODB_DP_NAME
+    valueFrom:
+      secretKeyRef:
+        name: jhub-dp-mongo
+        key: database
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_MONGODB_DP_USER
+    valueFrom:
+      secretKeyRef:
+        name: jhub-dp-mongo
+        key: jhubusername
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_MONGODB_DP_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: jhub-dp-mongo
+        key: jhubpassword
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_MONGODB_DP_NAME_COLLECTION_SNAPSHOTS
+    valueFrom:
+      secretKeyRef:
+        name: jhub-dp-mongo
+        key: collection_snapshot
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_MONGODB_DP_NAME_COLLECTION_SENSORS_MEASUREMENTS_GROUPED_BY_MONTH
+    valueFrom:
+      secretKeyRef:
+        name: jhub-dp-mongo
+        key: collection_sensor_measurements_grouped_by_month
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_API_BASE_URL
+    valueFrom:
+      secretKeyRef:
+        name: mts-settings
+        key: baseUrl
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_API_BASE_URL_USER
+    value: 'http://user-svc.default.svc.cluster.local:8080'
+- op: add
+  path: /spec/template/spec/containers/0/env/0
+  value:
+    name: METROSCOPE_SERVER_TIMEZONE
+    valueFrom:
+      secretKeyRef:
+        name: mts-settings
+        key: timezone
+# - op: add
+#   path: /spec/template/spec/initContainers
+#   value:
+#     - name: data-importer-init
+#       image: harbor.metroscope.tech/prod/jhub-mongo-init:1.0.0
+#       imagePullPolicy: Always
+#       env:
+#         - name: MONGO_HOST
+#           valueFrom:
+#             secretKeyRef:
+#               key: host
+#               name: jhub-dp-mongo
+#         - name: MONGO_ROOT_USERNAME
+#           valueFrom:
+#             secretKeyRef:
+#               key: root_username
+#               name: jhub-dp-mongo
+#         - name: MONGO_ROOT_PASSWD
+#           valueFrom:
+#             secretKeyRef:
+#               key: root_passwd
+#               name: jhub-dp-mongo
+#         - name: MONGO_AUTHSOURCE
+#           value: admin
+#         - name: MONGO_TOKEN_DATABASE
+#           valueFrom:
+#             secretKeyRef:
+#               key: database
+#               name: jhub-dp-mongo
+#         - name: JHUBUSERNAME
+#           valueFrom:
+#             secretKeyRef:
+#               key: jhubusername
+#               name: jhub-dp-mongo
+#         - name: JHUBPASSWORD
+#           valueFrom:
+#             secretKeyRef:
+#               key: jhubpassword
+#               name: jhub-dp-mongo
