@@ -52,15 +52,10 @@ kubectl config current-context
 # }
 
 update () { ## deployment container image
-    echo "=> Update deployment $1/$2 image: $3"
-    echo "=> Namespace: $namespace"
-    if [ -z $namespace ]
-    then
-	namespace=emilie
-    fi
-    kubectl set image deployment/$1 $2=$3 --record -n $namespace ## && slack $slack_message "false" || slack $slack_message_error "true"
+    echo "=> Update deployment $1/$2 image: $3 Namespace: $4"
+    kubectl set image deployment/$1 $2=$3 --record -n $4 ## && slack $slack_message "false" || slack $slack_message_error "true"
 }
 
-update $INPUT_DEPLOYMENT $INPUT_CONTAINER $INPUT_IMAGE:$tag
+update $INPUT_DEPLOYMENT $INPUT_CONTAINER $INPUT_IMAGE:$tag $INPUT_NAMESPACE
 echo ::set-output name=slack_message::$slack_message
 ## TODO rollout version after X seconds

@@ -32,6 +32,7 @@ inputs:
   namespace:
     description: 'namespace inwhich to do tasks'
     required: false
+    default: 'default'
 outputs:
   slack_message:
     description: 'message which can be send to slack in order to describe the new deployed version'
