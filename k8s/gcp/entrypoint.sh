@@ -53,6 +53,7 @@ kubectl config current-context
 
 update () { ## deployment container image
     echo "=> Update deployment $1/$2 image: $3"
+    echo "=> Namespace: $namespace"
     if [ -z $namespace ]
     then
 	namespace=default
