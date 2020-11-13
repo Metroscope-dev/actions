@@ -54,10 +54,9 @@ kubectl config current-context
 update () { ## deployment container image
     echo "=> Update deployment $1/$2 image: $3"
     echo "=> Namespace: $namespace"
-    echo "=> 4eme arg: $4"
     if [ -z $namespace ]
     then
-	namespace=default
+	namespace=emilie
     fi
     kubectl set image deployment/$1 $2=$3 --record -n $namespace ## && slack $slack_message "false" || slack $slack_message_error "true"
 }
