@@ -29,8 +29,8 @@ if [ ! -d "$HOME/.config/gcloud" ]; then
    gcloud auth activate-service-account --key-file=/tmp/account.json --project $project_id
 fi
 
-echo ::add-path::/google-cloud-sdk/bin/gcloud
-echo ::add-path::/google-cloud-sdk/bin/gsutil
+# echo ::add-path::/google-cloud-sdk/bin/gcloud
+# echo ::add-path::/google-cloud-sdk/bin/gsutil
 
 # Update kubeConfig.
 gcloud container clusters get-credentials "$CLUSTER_NAME" --zone "$ZONE_NAME" --project "$PROJECT_ID"
