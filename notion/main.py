@@ -5,14 +5,14 @@ from notion.block import BookmarkBlock
 from notion.client import NotionClient
 
 # Get env parameters.
-service_name = os.environ['SERVICE_NAME']
-artefact_name = os.environ['ARTEFACT_NAME']
-latest_tag = os.environ['LATEST_TAG']
+service_name = os.environ['INPUT_SERVICE_NAME']
+artefact_name = os.environ['INPUT_ARTEFACT_NAME']
+latest_tag = os.environ['INPUT_LATEST_TAG']
 # JFrog: "https://metroscope.jfrog.io/metroscope/maven-repo/com/metroscope/SERVICE_NAME/LATEST_TAG/ARTEFACT_NAME-LATEST_TAG.jar!/static/index.html"
-url_template = os.environ['URL_TEMPLATE']
+url_template = os.environ['INPUT_URL_TEMPLATE']
 
-notion_token = os.environ['NOTION_TOKEN']
-notion_documentation_page = os.environ['NOTION_DOCUMENTATION_PAGE']
+notion_token = os.environ['INPUT_NOTION_TOKEN']
+notion_documentation_page = os.environ['INPUT_NOTION_DOCUMENTATION_PAGE']
 
 api_url = url_template \
     .replace("SERVICE_NAME", service_name) \
