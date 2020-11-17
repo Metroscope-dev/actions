@@ -1,0 +1,25 @@
+name: 'Update notion documentation'
+author: 'Metroscope'
+description: 'Define the right tag, if no git tag is present create a yy.mm-DEVXXX version or return the current git tag'
+inputs:
+  SERVICE_NAME:
+    description: 'Name of the service'
+    required: true
+  ARTEFACT_NAME:
+    description: 'Name of the output artefact'
+    required: true
+  LATEST_TAG:
+    description: 'Latest tag of the service'
+    required: true
+  URL_TEMPLATE:
+    description: 'JFrog url template containing SERVICE_NAME, LATEST_TAG and ARTEFACT_NAME to be replaced with env variable.'
+    required: true
+  NOTION_TOKEN:
+    description: 'Obtain the token_v2 value by inspecting your browser cookies on a logged-in (non-guest) session on Notion.so.'
+    required: true
+  NOTION_DOCUMENTATION_PAGE:
+    description: 'Notion url page to be updated.'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
