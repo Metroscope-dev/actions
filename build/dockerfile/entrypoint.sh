@@ -33,7 +33,7 @@ registry=$(echo $INPUT_IMAGE | cut -f1 -d"/")
 tag=${INPUT_TAG##*/}
 ## create
 login $registry $INPUT_REGISTRY_LOGIN $INPUT_REGISTRY_PASSWORD
-build $INPUT_DOCKERFILE $INPUT_IMAGE $tag $INPUT_BUILD_ARGS
+build $INPUT_DOCKERFILE $INPUT_IMAGE $tag "$INPUT_BUILD_ARGS"
 push  $INPUT_IMAGE $tag
 
 case "$tag" in
