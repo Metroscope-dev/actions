@@ -18,6 +18,9 @@ inputs:
     description: 'name of the dockerfile'
     required: false
     default: 'Dockerfile'
+  build_arg:
+    description: 'parameter --build-arg for build step'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
