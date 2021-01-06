@@ -19,7 +19,7 @@ inputs:
     required: false
     default: 'Dockerfile'
   build_args:
-    description: 'parameter --build-arg for build step'
+    description: '--build-arg parameter list during docker build, under the form: ARG1=value1,ARG2=value2[, ...]'
     required: false
 runs:
   using: 'docker'
