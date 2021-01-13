@@ -21,6 +21,9 @@ inputs:
   build_args:
     description: '--build-arg parameter list during docker build, under the form: ARG1=value1,ARG2=value2[, ...]'
     required: false
+  directory:
+    description: 'the build context directory, contains dockerfile and files to add into docker image'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
