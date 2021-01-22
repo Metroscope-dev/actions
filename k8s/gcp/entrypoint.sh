@@ -43,7 +43,7 @@ kubectl config current-context
 #         rolling update image         #
 ########################################
 
-update () { ## deployment container image
+update () { ## deployment container image namespace
     echo "=> Update deployment $1/$2 image: $3 Namespace: $4"
     kubectl set image deployment/$1 $2=$3 --record -n $4 ## && slack $slack_message "false" || slack $slack_message_error "true"
 }

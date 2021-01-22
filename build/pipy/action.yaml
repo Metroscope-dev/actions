@@ -1,0 +1,19 @@
+name: 'PIPY - build and push'
+author: 'Metroscope'
+description: 'GitHub Action to perform pipy package build and deploy'
+inputs:
+  PACKAGE_VERSION:
+    description: 'Package version'
+    required: true
+  JFROG_PASSWORD:
+    description: 'Jfrog credentials - password'
+    required: true
+  JFROG_USERNAME:
+    description: 'Jfrog credentials - password'
+    required: true
+outputs:
+  slack_message:
+    description: 'message which can be sent to slack in order to describe the new pipy package'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
