@@ -1,11 +1,13 @@
 #!/bin/sh
 set -e
 
-PACKAGE_VERSION=tag=${INPUT_PACKAGE_VERSION##*/}
+PACKAGE_VERSION=${INPUT_PACKAGE_VERSION##*/}
 PACKAGE_NAME=$(python3 setup.py --name)
 
 echo "=> Build and push $PACKAGE_NAME==$PACKAGE_VERSION"
-sed -i "s/version=.*/version='$1',/g" setup.py
+sed -i "s/version=.*/version='$PACKAGE_VERSION',/g" setup.py
+
+cat setup.py
 
 echo "=> Check if $PACKAGE_NAME==$PACKAGE_VERSION"
 version_already_on_remote_repo=$(pip3 install --index-url https://${INPUT_JFROG_USERNAME}:${INPUT_JFROG_PASSWORD}@metroscope.jfrog.io/metroscope/api/pypi/python-repo/simple ${PACKAGE_NAME}==notexisting 2>&1 | grep "Could not find a version that satisfies the requirement" | grep "[^0-9.]${PACKAGE_VERSION}[^0-9.]" | wc -l)
