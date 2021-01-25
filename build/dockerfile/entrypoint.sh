@@ -8,7 +8,8 @@ function login { ## regirtry login password
 
 function build { ## dockerfile image tag
     echo -e "\n=> docker build $2"
-    docker build -f $1 -t $2:$3 -t $2:"latest" .
+    [[ ! -z "$4" ]] && I=",${4}" && BUILD_ARGS="${I//,/ --build-arg }"
+    docker build -f $1 -t $2:$3 -t $2:"latest" $BUILD_ARGS .
 }
 
 function push { ## image tag
@@ -32,7 +33,7 @@ registry=$(echo $INPUT_IMAGE | cut -f1 -d"/")
 tag=${INPUT_TAG##*/}
 ## create
 login $registry $INPUT_REGISTRY_LOGIN $INPUT_REGISTRY_PASSWORD
-build $INPUT_DOCKERFILE $INPUT_IMAGE $tag
+build $INPUT_DOCKERFILE $INPUT_IMAGE $tag "$INPUT_BUILD_ARGS"
 push  $INPUT_IMAGE $tag
 
 case "$tag" in
