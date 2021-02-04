@@ -18,11 +18,13 @@ if [ ${version_already_on_remote_repo} = 1 ]; then
     exit 1
 fi
 
-echo "=> Create all-requirements.txt"
+echo "=> Install local package"
 pip3 install \
      --index-url https://${INPUT_JFROG_USERNAME}:${INPUT_JFROG_PASSWORD}@metroscope.jfrog.io/metroscope/api/pypi/python-repo/simple \
      --extra-index-url https://pypi.python.org/simple .
-pip3 freeze --all > all-requirements.txt
+echo "=> Create all-requirements.txt"
+pip3 list --format=freeze > all-requirements.txt
+cat all-requirements.txt
 
 echo "=> Build $PACKAGE_NAME==$PACKAGE_VERSION"
 python3 setup.py sdist bdist_wheel
