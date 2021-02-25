@@ -16,10 +16,6 @@ if [ ${version_already_on_remote_repo} = 1 ]; then
     exit 1
 fi
 
-echo "=> Update pip and install build dependencies"
-pip3 install -U pip
-pip3 install "setuptools>=53.0.0" "wheel>=0.36.2"
-
 echo "=> Install local package"
 pip3 install \
      --index-url https://${INPUT_JFROG_USERNAME}:${INPUT_JFROG_PASSWORD}@metroscope.jfrog.io/metroscope/api/pypi/python-repo/simple \
