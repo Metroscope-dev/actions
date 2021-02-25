@@ -18,7 +18,7 @@ fi
 
 echo "=> Update pip and install build dependencies"
 pip3 install -U pip
-pip3 install setuptools>=53.0.0 wheel>=0.36.2
+pip3 install "setuptools>=53.0.0" "wheel>=0.36.2"
 
 echo "=> Install local package"
 pip3 install \
