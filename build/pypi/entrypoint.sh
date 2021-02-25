@@ -26,7 +26,7 @@ pip3 install \
      --extra-index-url https://pypi.python.org/simple .
 
 echo "=> Create all-requirements.txt"
-pip3 freeze --all > all-requirements.txt
+pip3 list --format=freeze > all-requirements.txt
 
 echo "=> Build $PACKAGE_NAME==$PACKAGE_VERSION"
 python3 setup.py sdist bdist_wheel
