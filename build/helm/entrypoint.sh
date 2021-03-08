@@ -25,6 +25,11 @@ function switch_chart { ## image current_repo wanted_repo
     chart=$(echo "$1" | sed "s/harbor.metroscope.tech\/$2/harbor.metroscope.tech\/$3/g")
 }
 
+function switch_image_to_prod { #path
+    echo "Switch metroscope image from dev to prod"
+    find $1 -type f -name '*.yaml' | xargs sed -i "s/harbor.metroscope.tech\/dev/harbor.metroscope.tech\/prod/g"
+}
+
 registry=$(echo $INPUT_CHART | cut -f1 -d"/")
 tag=${INPUT_TAG##*/}
 ## create
@@ -37,7 +42,8 @@ case "$tag" in
                             ;;
     *)                      echo "=> create and push prod version : [ $tag, latest ]"
                             switch_chart "$INPUT_CHART" "dev" "prod"
+                            switch_image_to_prod $INPUT_PATH
                             ;;
 esac
-build $INPUT_PATH $chart $tag
+create $INPUT_PATH $chart $tag
 push  $chart $tag
