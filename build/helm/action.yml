@@ -1,0 +1,23 @@
+name: 'Create and publish helm chart with OCI'
+author: 'Metroscope'
+description: 'Uses the git tag as the helm chart tag and pushes'
+inputs:
+  registry_password:
+    description: 'password of the registry'
+    required: true
+  registry_login:
+    description: 'login of the registry'
+    required: true
+  chart:
+    description: 'full name of the chart <registry>/<repo>/<name> without tag'
+    required: true
+  tag:
+    description: 'tag wanted for this image'
+    required: true
+  path:
+    description: 'path to the chart directory'
+    required: false
+    default: '.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
