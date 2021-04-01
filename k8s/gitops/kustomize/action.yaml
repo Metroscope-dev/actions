@@ -1,0 +1,30 @@
+name: 'kustomize - update docker images'
+author: 'Metroscope'
+description: 'This github action pull a repository, and change (with kustomize edit set image) the image affiliated to a kustomize'
+inputs:
+  REPO_LINK:
+    description: 'https link to the repository to clone the repository which contains the kustomize'
+    required: true
+  PAT:
+    description: 'Github Personal access token'
+    required: true
+  PATH:
+    description: 'list of path (separated with coma) where the kustomize are located'
+    required: true
+  IMAGE:
+    description: 'name of the docker image (without tag)'
+    required: true
+  NEW_TAG:
+    description: 'new tag of the docker image'
+    required: true
+  BRANCH:
+    description: 'Branch the action must change'
+    required: false
+    default: 'master'
+  OLD_TAG:
+    description: 'old tag which will be replaced by this github action'
+    required: false
+    default: 'latest'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
