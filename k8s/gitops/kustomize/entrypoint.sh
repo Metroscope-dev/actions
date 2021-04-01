@@ -28,4 +28,4 @@ do
     update_kustomize $p $INPUT_IMAGE $INPUT_NEW_TAG $INPUT_OLD_TAG
 done
 
-# push_repository $INPUT_IMAGE $INPUT_NEW_TAG
+push_repository $INPUT_IMAGE $INPUT_NEW_TAG
