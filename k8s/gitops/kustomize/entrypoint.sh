@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 
 function clone_repository { # github_personal_acces_token repository_link
     repo_access=$(echo "$2" | sed "s/:\/\//:\/\/$1@/g" -)
