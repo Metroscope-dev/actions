@@ -1,0 +1,16 @@
+name: 'Protect file or directory'
+author: 'Metroscope'
+description: 'Exit on error when protected directory/file are change'
+inputs:
+  whitelist_branch:
+    description: "List of branch (separated by coma) from where you can change files which are protected by this action"
+    require: true
+  protect:
+    description: 'directory or file to protect from update'
+    require: true
+outputs:
+  message:
+    description: 'List of the file which the developer are not allowed to update'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
