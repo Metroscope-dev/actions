@@ -3,21 +3,19 @@ set -e
 
 switch_repo () { ## from to
     echo "switch from harbor $1 to $2"
-    find . -type f -name '*.gradle' | xargs sed -i "s/harbor.metroscope.tech\/$1/harbor.metroscope.tech\/$2/g"
+    sed -i "s/harbor.metroscope.tech\/$1/harbor.metroscope.tech\/$2/g" gradle.properties
 }
 
 switch_tag () {
     echo "use tag $1 and latest"
-    find . -type f -name '*.gradle' | xargs sed -i "/version.=./c\version = \"$1\""
+    sed -i "/^version=./c\version=$1" gradle.properties
 }
 
 tag=${INPUT_TAG##*/}
 switch_tag $tag
-## Build dev version
-./gradlew --no-daemon jib
+## Build dev version + publish on artifactory
+./gradlew --no-daemon jib artifactoryPublish
 
-## Create doc
-[[ -v "ARTIFACTORYPUBLISH" && $ARTIFACTORYPUBLISH == "true" ]] && ./gradlew --no-daemon artifactoryPublish
 case "$tag" in
     *"DEV"* | "latest")     exit 0
                             ;;

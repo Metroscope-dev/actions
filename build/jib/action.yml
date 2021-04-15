@@ -2,22 +2,6 @@ name: 'Build and publish Docker'
 author: 'Metroscope'
 description: 'Uses the git tag as the docker tag and pushes the container'
 inputs:
-  REGISTRY_PASSWORD:
-    description: 'password of the registry'
-    required: true
-  REGISTRY_USER:
-    description: 'login of the registry'
-    required: true
-  JFROG_USER:
-    description: jfrog login
-    required: true
-  JFROG_PASSWORD:
-    description: jfrog password
-    required: true
-  # ARTIFACTORYPUBLISH:
-  #   description: push doc and jar file on jfrog
-  #   required: false
-  #   default: 'false'
   TAG:
     description: 'tag wanted'
     required: true
