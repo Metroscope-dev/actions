@@ -5,6 +5,9 @@ inputs:
   TAG:
     description: 'tag wanted'
     required: true
+  services:
+    description: 'list of services to be processed'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
