@@ -9,6 +9,7 @@ function login { ## regirtry login password
 function build { ## dockerfile image tag
     echo -e "\n=> docker build $2"
     [[ ! -z "$4" ]] && I=",${4}" && BUILD_ARGS="${I//,/ --build-arg }"
+    echo "docker build -f $1 -t $2:$3 -t $2:'latest' $BUILD_ARGS ."
     docker build -f $1 -t $2:$3 -t $2:"latest" $BUILD_ARGS .
 }
 
