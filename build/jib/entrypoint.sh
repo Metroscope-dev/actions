@@ -14,7 +14,7 @@ switch_tag () {
 tag=${INPUT_TAG##*/}
 switch_tag $tag
 ## Build dev version + publish on artifactory
-./gradlew --no-daemon jib artifactoryPublish
+./gradlew --no-daemon jib artifactoryPublish --stacktrace
 
 case "$tag" in
     *"DEV"* | "latest")     exit 0
